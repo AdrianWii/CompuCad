@@ -1,0 +1,179 @@
+<html>
+<head>
+
+	<meta charset="UTF-8"> 
+	<link rel="stylesheet" type="text/css" href="http://torus.uck.pk.edu.pl/~awidlak/CAD/styles/main.css"/>
+	<link rel="stylesheet" type="text/css" href="http://torus.uck.pk.edu.pl/~awidlak/CAD/styles/jquery.qtip.min.css"/>
+       
+        <!-- Bootstrap core CSS -->
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"/>
+	
+        <script src="http://torus.uck.pk.edu.pl/~awidlak/CAD/libs/jquery-3.1.1.min.js"></script>
+	<script src="http://torus.uck.pk.edu.pl/~awidlak/CAD/libs/jquery.qtip.min.js"></script>
+	<script src="http://torus.uck.pk.edu.pl/~awidlak/CAD/libs/jquery.maphilight.min.js"></script>
+	<script src="http://torus.uck.pk.edu.pl/~awidlak/CAD/libs/kompuCad.js"></script>
+
+</head>
+<body>
+	<div id="wstazka">
+		<img src="http://torus.uck.pk.edu.pl/~awidlak/CAD/images/wstazka.png" usemap="#wstazka" class="map" />
+		<div style="position: absolute; left: 250px; top: 20px;">
+                    <button class="btn btn-default" id="zatwierdz">Zatwierdź</button>
+                    <a href="{{ path('todo_list') }}" class="btn btn-success btn-back">Wróć do listy zadań</a><br><br>
+                        <button class="btn btn-default" id="wyczysc" onclick="wyczysc();">Wyczyść</button>
+		</div>
+	</div>
+	<div class="tlo"></div>
+	<canvas id="canvas" width="1920" height="700">
+		Twoja przeglądarka nie obsługuje technologii Canvas HTML5.
+	</canvas>
+	<map name="wstazka">	
+	  <area shape="rect" coords="4,22,43,85" onclick="inicjujFunkcje('linia', event);" title="<img src='http://torus.uck.pk.edu.pl/~awidlak/CAD/images/tooltips/linia.png' />">
+	  <area shape="rect" coords="43,22,90,85" onclick="inicjujFunkcje('polilinia', event);" title="<img src='http://torus.uck.pk.edu.pl/~awidlak/CAD/images/tooltips/polilinia.png' />">
+	  <area shape="rect" coords="96,22,138,63" onclick="inicjujFunkcje('okrag_1', event);" title="<img src='http://torus.uck.pk.edu.pl/~awidlak/CAD/images/tooltips/images/tooltips/okrag_1.png' />">
+	  <area shape="rect" coords="96,63,138,85" onclick="pokazSubMenu('okrag', event);">
+	  <area shape="rect" coords="143,22,185,63" onclick="inicjujFunkcje('luk_1', event);" title="<img src='http://torus.uck.pk.edu.pl/~awidlak/CAD/images/tooltips/images/tooltips/luk_1.png' />">
+	  <area shape="rect" coords="143,63,185,85" onclick="pokazSubMenu('luk', event);">
+	  <area shape="rect" coords="186,26,210,47" onclick="inicjujFunkcje('prostokat_1', event);" title="<img src='http://torus.uck.pk.edu.pl/~awidlak/CAD/images/tooltips/images/tooltips/prostokat_1.png' />">
+	  <area shape="rect" coords="210,26,222,47" onclick="pokazSubMenu('prostokat', event);">
+	  <area shape="rect" coords="186,49,210,70" onclick="inicjujFunkcje('srodek_1', event);" title="<img src='http://torus.uck.pk.edu.pl/~awidlak/CAD/images/tooltips/images/tooltips/srodek_1.png' />">
+	  <area shape="rect" coords="210,49,222,70" onclick="pokazSubMenu('srodek', event);">
+	  <area shape="rect" coords="186,73,210,94" onclick="inicjujFunkcje('kreskowanie_1', event);" title="<img src='http://torus.uck.pk.edu.pl/~awidlak/CAD/images/tooltips/images/tooltips/kreskowanie_1.png' />">
+	  <area shape="rect" coords="210,73,222,94" onclick="pokazSubMenu('kreskowanie', event);">
+	</map>
+	
+	<div id="okragSubMenu" class="hidden subMenu">
+		<div data-functionname="okrag_1">
+		  <img />
+		  <span>Środek, promień</span>
+		</div>
+		<div data-functionname="okrag_2">
+		  <img />
+		  <span>Środek, średnica</span>
+		</div>
+		<hr/>
+		<div data-functionname="okrag_3">
+		  <img />
+		  <span>2 punkty</span>
+		</div>
+		<div data-functionname="okrag_4">
+		  <img />
+		  <span>3 punkty</span>
+		</div>
+		<hr/>
+		<div data-functionname="okrag_5">
+		  <img />
+		  <span>Styczny, styczny, promień</span>
+		</div>
+		<div data-functionname="okrag_6">
+		  <img />
+		  <span>Styczny, styczny, styczny</span>
+		</div>
+	</div>
+	
+	<div id="lukSubMenu" class="hidden subMenu">
+		<div data-functionname="luk_1">
+		  <img />
+		  <span>3 punkty</span>
+		</div>
+		<hr/>
+		<div data-functionname="luk_2">
+		  <img />
+		  <span>Początek, środek, koniec</span>
+		</div>
+		<div data-functionname="luk_3">
+		  <img />
+		  <span>Początek, środek, kąt</span>
+		</div>
+		<div data-functionname="luk_4">
+		  <img />
+		  <span>Początek, środek, cięciwa</span>
+		</div>
+		<hr/>
+		<div data-functionname="luk_5">
+		  <img />
+		  <span>Początek, koniec, kąt</span>
+		</div>
+		<div data-functionname="luk_6">
+		  <img />
+		  <span>Początek, koniec, zwrot</span>
+		</div>
+		<div data-functionname="luk_7">
+		  <img />
+		  <span>Początek, koniec, promień</span>
+		</div>
+		<hr/>
+		<div data-functionname="luk_8" class="moveTooltipUp">
+		  <img />
+		  <span>Środek, początek, koniec</span>
+		</div>
+		<div data-functionname="luk_9" class="moveTooltipUp">
+		  <img />
+		  <span>Środek, początek, kąt</span>
+		</div>
+		<div data-functionname="luk_10" class="moveTooltipUp">
+		  <img />
+		  <span>Środek, początek, cięciwa</span>
+		</div>
+		<hr/>
+		<div data-functionname="luk_11" class="moveTooltipUp">
+		  <img />
+		  <span>Kontynuuj</span>
+		</div>
+	</div>
+	
+	<div id="prostokatSubMenu" class="hidden subMenu">
+		<div data-functionname="prostokat_1">
+		  <img />
+		  <span>Prostokąt</span>
+		</div>
+		<div data-functionname="prostokat_2">
+		  <img />
+		  <span>Wielobok</span>
+		</div>
+	</div>
+	
+	<div id="srodekSubMenu" class="hidden subMenu">
+		<div data-functionname="srodek_1">
+		  <img />
+		  <span>Środek</span>
+		</div>
+		<div data-functionname="srodek_2">
+		  <img />
+		  <span>Oś, koniec</span>
+		</div>
+		<hr/>
+		<div data-functionname="srodek_3">
+		  <img />
+		  <span>Łuk eliptyczny</span>
+		</div>
+	</div>
+	
+	<div id="kreskowanieSubMenu" class="hidden subMenu">
+		<div data-functionname="kreskowanie_1">
+		  <img />
+		  <span>Kreskowanie</span>
+		</div>
+		<div data-functionname="kreskowanie_2">
+		  <img />
+		  <span>Gradient</span>
+		</div>
+		<div data-functionname="kreskowanie_3">
+		  <img />
+		  <span>Obwiednia</span>
+		</div>
+	</div>
+	
+	<div  class="control-group" id="inputTextBox" style="display:none;">
+		<form method="POST">
+                    <div class="controls form-inline">
+			<span id="inputFunkcja"></span>
+			<input class="form-control input-small" type="text" name="input" />
+			<input class="btn btn-default" type="button" value="Wyślij" onclick="wykonajFunkcje()" />
+                    </div>
+		</form>
+	</div>
+    
+    
+</body>
+</html>

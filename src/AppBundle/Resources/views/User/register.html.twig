@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{#{% form_theme form "AppBundle:Form:form_theme.html.twig" %}#}
+
+{% block body %}
+    <h3 class="page-header">DODAJ UŻYTKOWNIKA</h3>
+    <div class="col-sm-7">
+    {{form_start(form)}}
+    {{form_widget(form)}}
+    {{form_end(form)}}
+    </div>
+{% endblock %}

@@ -1,0 +1,98 @@
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    margin-top: 50px;
+    margin-bottom: 100px;
+}
+
+.jumbotron .text{
+    float: left;
+    width: 60%;
+}
+
+.jumbotron .bull{
+    float: right;
+    width: 35%;
+    margin-top: 25px;
+}
+
+.widget a{
+    margin-top: 15px;
+}
+
+.extra-padding{
+    padding: 30px 0;
+}
+
+.journal p,
+.contact p{
+    margin: 20px 0;
+}
+
+.contact form button{
+    float: right;
+}
+
+.about .bio{
+    float: left;
+    width: 60%;
+}
+
+.about .img-thumbnail{
+    float: right;
+    width: 30%;
+    margin-top: 25px;
+}
+
+.guest-book{
+    margin: 25px 0;
+}
+
+.guest-book section {
+    margin-bottom: 15px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #ccc;
+}
+
+.guest-book section h4{
+    font-weight: normal;
+}
+
+
+#footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    /* Set the fixed height of the footer here */
+    height: 60px;
+    background-color: #f5f5f5;
+}
+
+#footer p{
+    margin: 20px 0;
+}
+
+#form_birthdate{
+    overflow: hidden;
+}
+
+[name*=birthdate]{
+    float: left;
+    width: 33.333%;
+}
+
+.container.alerts .alert:first-child{
+    margin-top: 15px;
+}
+
+.container.alerts .alert:last-child{
+    margin-bottom: 0;
+}
+
+.panel-btn{
+    margin-top: -5px;
+    margin-left: 5px;
+}

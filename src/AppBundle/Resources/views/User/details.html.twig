@@ -1,0 +1,86 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="row">
+        {% if is_granted('ROLE_ADMIN') %}  
+        <div class="col-xs-12 col-md-6 col-xs-offset-0 toppad" >
+        {% else %}
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xs-offset-0 col-sm-offset-0 col-md-offset-3 col-lg-offset-3 toppad" >
+        {% endif %}
+
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h3 class="panel-title">{{ user.name|upper }} {{ user.surname|upper }}</h3>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-4 col-lg-4 " align="center"> 
+                            <img alt="User Pic" src="http://tenexecutives.com/wp-content/themes/tenex/images/member-default.png" class="img-circle img-responsive"> 
+                            <hr>
+                            <a href="{{ path('user_update') }}" class="btn btn-primary col-md-12">Edytuj</a>
+
+                        </div>
+
+                        <div class=" col-md-8 col-lg-8 "> 
+                            <table class="table table-user-information">
+                                <tbody>
+                                    <tr>
+                                        <td>Login:</td>
+                                        <td>{{user.username}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Name:</td>
+                                        <td>{{user.name}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Surname:</td>
+                                        <td>{{user.surname}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Email:</td>
+                                        <td>
+                                            <a href={{user.email}}>{{user.email}}</a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Telefon:</td>
+                                        <td>{{user.phone}}</td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        {% if is_granted('ROLE_ADMIN') %}                            
+        <div class="col-xs-12 col-md-6 col-xs-offset-0" >
+                <div class="panel panel-success">
+                <div class="panel-heading">UTWÓRZ KURS</div>
+                <div class="panel-body">
+                    {{form_start(form)}}
+                    {{form_widget(form)}}
+                    {{form_end(form)}}
+                </div>
+                </div>
+        </div>
+        <div class="col-xs-12 col-md-6 col-xs-offset-0" >
+            <div class="panel panel-warning">
+                <div class="panel-heading">UŻYTKOWNICY</div>
+                <div class="panel-body">
+                    <a href="register" class="btn btn-default btn-block">Dodaj użytkownika</a>
+                    <a href="{{ path('user_manage') }}" class="btn btn-default btn-block">Zarzadzaj użytkownikami</a>
+                </div>
+            </div>
+        </div>
+                
+        {% endif %}
+                                   
+        
+    </div>
+
+{% endblock %}
+

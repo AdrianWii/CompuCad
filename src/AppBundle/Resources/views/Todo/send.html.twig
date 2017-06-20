@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% if form is not null %}  
+    {% form_theme form "AppBundle:Form:form_theme.html.twig" %}
+{% endif %}
+
+
+{% block body %}
+    <h3 class="page-header">PRZEŚLIJ ZADANIE</h3>
+    <div class="span12 pagination-centered">
+               {% if form is not null %}    
+            {{ form(form, {'attr': {'novalidate': 'true'}}) }}
+        {% else %}
+            <div class="panel panel-success">
+                <div class="panel-heading">Zadanie zostało przesłane.</div>
+                <div class="panel-body">Trwa ocenianie pracy.</div>
+            </div>
+            
+        {% endif %}
+    </div>
+{% endblock %}

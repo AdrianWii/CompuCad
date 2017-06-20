@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h3 class="page-header">WYKONAJ ĆWICZENIE</h3>
+    <p>Wszystkie ćwiczenia podlegają ochronie praw autorskich © KOMPUGRAF</p>
+    <div class="col-xs-12 col-md-4 choice">WYBIERZ KURS:</div>
+    <div class="col-xs-12 col-md-8 choice">
+        <select class="form-control" name="dbType" id="dbType">
+            <option>---</option>
+            {% for c in courses %}
+                 <option value="{{ c.id }}">{{ c.course }}</option>
+            {% endfor %}
+        </select>
+    </div>
+
+<div id="otherType" style="display:none;">
+test
+</div>
+{% for c in courses %}
+<div id="{{ c.id }}" style="display:none;">
+    <table class="table table-striped table-excercises"> 
+        <thead> 
+            <tr> 
+                <th>#</th> 
+                <th>Ćwiczenie</th> 
+                <th></th>
+            </tr> 
+        </thead> 
+        <tbody> 
+            {% for excercise in excercises %}
+                <tr> 
+                    <td class="col-md-1">{{excercise.id}}</td> 
+                    <td class="col-md-6">{{excercise.excercise}}</td> 
+                    <td class="col-md-5">
+                        <a href="example/{{excercise.id}}" class="btn btn-success btn-list pull-right">Przykład</a>
+                        <a href="autocad" class="btn btn-primary btn-list pull-right">Wykonaj</a>
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <a href="update/{{excercise.id}}" class="btn btn-default btn-list pull-right">Edytuj</a>
+                            <a href="delete/{{excercise.id}}" class="btn btn-danger btn-list pull-right">Usuń</a>
+                        {% endif %}
+                    </td> 
+                </tr>
+            {% endfor %}
+        </tbody> 
+    </table>
+</div>
+        {% endfor %}
+    {% if is_granted('ROLE_ADMIN') %}
+        <a href="create" class="btn btn-default">Dodaj zadanie</a>
+    {% endif %}
+{% endblock %}

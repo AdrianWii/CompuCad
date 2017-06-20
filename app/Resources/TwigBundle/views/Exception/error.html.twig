@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block pageTitle %}
+    Błąd | {{ parent() }}
+{% endblock %}
+
+
+{% block body %}
+    <div class="container">
+        <h1>Błąd: {{ status_code }}</h1>
+        <p>{{ status_text }}</p>
+        <p><a href="{{ path('root') }}" class="btn btn-primary" role="button">Wróć na stronę główną   &raquo;</a></p>
+    </div>
+{% endblock %}

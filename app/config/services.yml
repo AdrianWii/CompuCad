@@ -1,0 +1,14 @@
+# Learn more about services, parameters and containers at
+# http://symfony.com/doc/current/service_container.html
+parameters:
+     test.service.notification.class: AppBundle\Service\NotificationService
+     test.service.doctrine.class: AppBundle\Service\DoctrineService
+
+services:
+    notification:
+        class: %test.service.notification.class%
+        arguments: ["@session"]
+
+    datamodel:
+        class: %test.service.doctrine.class%
+        arguments: [ "@doctrine.orm.entity_manager" ]
